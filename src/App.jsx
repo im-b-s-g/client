@@ -49,41 +49,41 @@ const App = () => {
     fetchData();
   }, []);
 
-  // const handleDownloadPdf = async (filename) => {
-  //   try {
-  //     const response = await axios.get(
-  //       " http://localhost:3000/download-pdf/${filename}",
-  //       {
-  //         responseType: "blob", // Set response type to Blob
-  //       }
-  //     );
+  const handleDownloadPdf = async (filename) => {
+    try {
+      const response = await axios.get(
+        " http://localhost:3000/download-pdf/${filename}",
+        {
+          responseType: "blob", // Set response type to Blob
+        }
+      );
 
-  //     // Create a temporary URL for the blob
-  //     const url = window.URL.createObjectURL(new Blob([response.data]));
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
 
-  //     // Create a link element
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.setAttribute("download", filename);
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", filename);
 
-  //     // Append the link to the document body and trigger the click event
-  //     document.body.appendChild(link);
-  //     link.click();
+      // Append the link to the document body and trigger the click event
+      document.body.appendChild(link);
+      link.click();
 
-  //     // Clean up resources
-  //     link.parentNode.removeChild(link);
-  //   } catch (error) {
-  //     console.error("Error downloading PDF:", error);
-  //   }
-  // };
+      // Clean up resources
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading PDF:", error);
+    }
+  };
 
-  // const handleViewPdf = async (filename) => {
-  //   try {
-  //     window.open("http://localhost:3000/view-pdf/${filename}", "_blank");
-  //   } catch (error) {
-  //     console.error("Error viewing PDF:", error);
-  //   }
-  // };
+  const handleViewPdf = async (filename) => {
+    try {
+      window.open("http://localhost:3000/view-pdf/${filename}", "_blank");
+    } catch (error) {
+      console.error("Error viewing PDF:", error);
+    }
+  };
 
   return (
     <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
@@ -122,13 +122,13 @@ const App = () => {
             <div>
               <li
                 key={pdf.filename}
-                // onClick={() => handleDownloadPdf(pdf.filename)}
+                onClick={() => handleDownloadPdf(pdf.filename)}
               >
                 {pdf.filename}
               </li>
-              {/* <button onClick={() => handleViewPdf(pdf.filename)}> */}
-              View PDF
-              {/* </button> */}
+              <button onClick={() => handleViewPdf(pdf.filename)}>
+                View PDF
+              </button>
             </div>
           ))}
         </ul>
